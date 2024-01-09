@@ -1,6 +1,5 @@
 import "./style.css"
 
-
 document.querySelector("#app").innerHTML = `
   <div>
     <div id="audioPlayer">
@@ -9,7 +8,7 @@ document.querySelector("#app").innerHTML = `
   </div>
 `
 
-let audios = document.getElementById("audios")
+const audios = document.getElementById("audios")
 fetch("http://localhost:3000/audio")
     .then((res) => res.json())
     .then((dataArray) => {
