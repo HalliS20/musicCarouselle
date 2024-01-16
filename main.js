@@ -2,17 +2,36 @@ import "./style.css"
 
 document.querySelector("#app").innerHTML = `
   <div>
-    <div id="audioPlayer">
-      <div id="audios"></div>
-    </div>
+        <div id="audioPlayer">
+            <div id="audios"></div>
+        </div>
   </div>
 `
+
+function playAudio(audio, playPauseButton) {
+    audio.play()
+    playPauseButton.innerText = "Pause"
+    playPauseButton.removeEventListener("click", playAudio)
+    playPauseButton.addEventListener("click", () =>
+        pauseAudio(audio, playPauseButton),
+    )
+}
+
+function pauseAudio(audio, playPauseButton) {
+    audio.pause()
+    playPauseButton.innerText = "Play"
+    playPauseButton.removeEventListener("click", pauseAudio)
+    playPauseButton.addEventListener("click", () =>
+        playAudio(audio, playPauseButton),
+    )
+}
 
 const audios = document.getElementById("audios")
 fetch("http://localhost:3000/audio")
     .then((res) => res.json())
     .then((dataArray) => {
-        dataArray.forEach((data) => {
+        for (const index in dataArray) {
+            const data = dataArray[index]
             console.log(data)
             const audio = new Audio(data.url)
 
@@ -23,7 +42,9 @@ fetch("http://localhost:3000/audio")
             const playPauseButton = document.createElement("button")
             playPauseButton.classList.add("playPauseButton")
             playPauseButton.innerText = "Play"
-            playPauseButton.addEventListener("click", playAudio)
+            playPauseButton.addEventListener("click", () =>
+                playAudio(audio, playPauseButton),
+            )
 
             const volumeSlider = document.createElement("input")
             volumeSlider.type = "range"
@@ -37,25 +58,11 @@ fetch("http://localhost:3000/audio")
 
             volumeSlider.classList.add("volumeSlider")
 
-            function playAudio() {
-                audio.play()
-                playPauseButton.innerText = "Pause"
-                playPauseButton.removeEventListener("click", playAudio)
-                playPauseButton.addEventListener("click", pauseAudio)
-            }
-
-            function pauseAudio() {
-                audio.pause()
-                playPauseButton.innerText = "Play"
-                playPauseButton.removeEventListener("click", pauseAudio)
-                playPauseButton.addEventListener("click", playAudio)
-            }
-
             player.appendChild(name)
             player.appendChild(playPauseButton)
             player.appendChild(volumeSlider) // Add the volume slider to the player
             player.classList.add("player")
 
             audios.appendChild(player)
-        })
+        }
     })

@@ -23,14 +23,14 @@ firebase.initializeApp(firebaseConfig)
 app.get("/audio", async (req, res) => {
     const storage = firebase.storage()
     const storageRef = storage.ref()
-    let audioList = []
+    const audioList = []
 
     storageRef
         .listAll()
         .then(async (result) => {
             const promises = result.items.map(async (itemRef) => {
                 const url = await itemRef.getDownloadURL()
-                audioList.push({name: itemRef.name, url: url})
+                audioList.push({ name: itemRef.name, url: url })
             })
 
             await Promise.all(promises)
