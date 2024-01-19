@@ -19,9 +19,6 @@ a {
     text-decoration: inherit;
 }
 
-a {
-    color: #535bf2;
-}
 
 body {
     margin: 0;
@@ -39,23 +36,7 @@ h1 {
 #app {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 2rem;
     text-align: center;
-}
-
-.logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
-}
-
-.logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-}
-
-.logo.vanilla:hover {
-    filter: drop-shadow(0 0 2em #f7df1eaa);
 }
 
 .card {
@@ -67,29 +48,45 @@ h1 {
 }
 
 #audioPlayer {
-    padding: 10px;
-    background-color: #333;
-    border-radius: 10px;
+
 }
 
 #audios {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
+    height: 300px;
+    padding: 50px;
+    padding-right: 100px;
     max-width: 300px;
+    background-color: #171616;
+    border-radius: 10px;
+    border: 1px solid black;
+    box-shadow: black 5px 5px 10px;
+
 }
 
 .player {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #333;
     flex: 0 0 auto;
-    scroll-snap-align: start;
+    scroll-snap-align: center;
     scroll-snap-stop: always;
-    /* Add this line */
-    margin-right: 10px;
+    margin-left: 50px;
     width: 300px;
+    height: 130px;
+    box-shadow: black 5px 5px 10px;
+    opacity: 0;
+    transition: opacity 0.5s;
+    align-self: center;
+}
+
+.player.centered {
+    opacity: 1;
 }
 
 .playPauseButton {
@@ -102,6 +99,17 @@ h1 {
     font-size: 16px;
     width: 50%;
 }
+
+.playBar{
+    display: flex;
+    width: 100%;
+    height: 60px;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    align-self: center;}
+
+
 
 button {
     border-radius: 8px;
@@ -116,12 +124,28 @@ button {
 }
 
 button:hover {
-    border-color: #646cff;
+    border: 2px solid #646cff;
 }
 
 button:focus,
-button:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
+button:active{
+    border: 2px solid #646cff;
+}
+
+#leftTransparent, #rightTransparent {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 30%; /* Adjust as needed */
+    background: transparent;
+}
+
+#leftTransparent {
+    left: 0;
+}
+
+#rightTransparent {
+    right: 0;
 }
 
 @media (prefers-color-scheme: light) {
@@ -135,6 +159,13 @@ button:focus-visible {
     }
 
     button {
-        background-color: #f9f9f9;
+        background-color: #FF9C93;
+    }
+    .playPauseButton {
+        align-self: center;
+        color: black;
+    }
+    .player{
+        background-color: lightcoral;
     }
 }

@@ -3,7 +3,9 @@ import "./style.css"
 document.querySelector("#app").innerHTML = `
   <div>
         <div id="audioPlayer">
+            <div id="leftTransparent"></div>   
             <div id="audios"></div>
+            <div id="rightTransparent"></div>
         </div>
   </div>
 `
@@ -58,11 +60,30 @@ fetch("http://localhost:3000/audio")
 
             volumeSlider.classList.add("volumeSlider")
 
+            const playBar = document.createElement("div")
+            playBar.classList.add("playBar")
+
             player.appendChild(name)
-            player.appendChild(playPauseButton)
-            player.appendChild(volumeSlider) // Add the volume slider to the player
+            playBar.appendChild(playPauseButton)
+            playBar.appendChild(volumeSlider) // Add the volume slider to the player
+            player.appendChild(playBar)
             player.classList.add("player")
 
             audios.appendChild(player)
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('centered');
+                    } else {
+                        entry.target.classList.remove('centered');
+                    }
+                });
+            }, { root: null, rootMargin: '0px', threshold: 1 });
+
+            observer.observe(player);
         }
     })
+
+
+
