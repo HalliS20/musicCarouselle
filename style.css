@@ -78,7 +78,7 @@ h1 {
     scroll-snap-stop: always;
     margin-left: 50px;
     width: 300px;
-    height: 130px;
+    height: 180px;
     box-shadow: black 5px 5px 10px;
     opacity: 0;
     transition: opacity 0.5s;
@@ -106,10 +106,80 @@ h1 {
     height: 60px;
     border-radius: 5px;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     align-self: center;}
 
+.volumeIcon {
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 30px;
+    font-style: normal;
+    cursor: pointer;
+}
 
+.volumeSlider {
+    position: absolute;
+    transform: rotate(-90deg);
+    left: 58%;
+    padding: 0;
+    margin-bottom: 70px;
+}
+
+.timeBar{
+    display: flex;
+    width: 100%;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: space-between;
+    align-self: center;
+    font-size: 13px;
+    margin-top: -12px;
+}
+
+.seekSlider[type="range"] {
+    width: 100%;
+    padding: 10px 0;
+    height: 3px;
+
+    border-radius: 0.5rem;
+    color: white;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .2s;
+    cursor: pointer;
+    /* removing default appearance */
+    -webkit-appearance: none;
+    appearance: none;
+    /*  slider progress trick  */
+    overflow: hidden;
+    background-clip: content-box;
+}
+
+.seekSlider[type="range"]::-webkit-slider-runnable-track {
+    height: 3px;
+    background: black;
+    overflow: hidden;
+}
+
+.seekSlider[type="range"]::-webkit-slider-thumb {
+    /* removing default appearance */
+    -webkit-appearance: none;
+    appearance: none;
+    /* creating a custom design */
+    height: 10px;
+    width: 20px;
+    background-color: #646cff;
+    /*  slider progress trick  */
+    box-shadow: -407px 3px 3px  400px #646cff ;
+}
+
+
+
+/*=========== PRESET STYLES===============*/
 
 button {
     border-radius: 8px;
