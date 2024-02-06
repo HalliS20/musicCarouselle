@@ -1,5 +1,16 @@
 import "./style.css"
-
+// ========= register service worker ================
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+            // Registration was successful
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }, function(err) {
+            // registration failed :(
+            console.log('ServiceWorker registration failed: ', err);
+        });
+    });
+}
 // ========= HTML Code ================
 document.querySelector("#app").innerHTML = `
   <div>
@@ -10,6 +21,8 @@ document.querySelector("#app").innerHTML = `
         </div>
   </div>
 `
+
+
 
 // ========= play audio function ================
 function playAudio(audio, playPauseButton) {
@@ -36,18 +49,6 @@ function pauseAudio(audio, playPauseButton) {
     )
 }
 
-
-// ========= register service worker ================
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/service-worker.js')
-        .then((registration) => {
-            console.log('Service Worker registered with scope:', registration.scope);
-        }).catch((error) => {
-        console.log('Service Worker registration failed:', error);
-    });
-}
-
-
 // ========= fetch data from firebase storage and display audio ================
 const audios = document.getElementById("audios")
 fetch("http://localhost:3000/audio")
@@ -55,7 +56,6 @@ fetch("http://localhost:3000/audio")
     .then((dataArray) => {
         for (const index in dataArray) {
             const data = dataArray[index]
-            console.log(data)
 
             //=============== Audio Element and title =================
             const audio = new Audio(data.url) // audio element is fetched from firebase url
